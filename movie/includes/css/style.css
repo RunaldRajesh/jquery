@@ -1,0 +1,28 @@
+#searchbtn
+{
+	background-color:#1d6c70;
+}
+
+#display
+{
+	font-size: 20px;
+	margin-left: 150px;
+	font-family: fantasy;
+	color: #313531;
+
+}
+body
+{
+	background-color:#5d8c69;
+}
+.navbar
+{
+	background-color: #5d8c69;
+}
+h3
+{
+	font-family: fantasy;
+	font-size: 30px;
+	margin-left: 70px;
+	margin-bottom: -10px;
+}

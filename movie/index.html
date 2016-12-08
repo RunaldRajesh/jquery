@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>jquery</title>
+	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="includes/css/bootstrap-glyphicons.css" rel="stylesheet">
+	<script src="includes/js/modernizr-2.6.2.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="includes/css/style.css">
+</head>
+<body>
+
+	<header>
+		<div class="navbar" >
+			<h3>MOVIE DB</h3>
+			<button class="btn btn-default btn-block pull-right" type="button" style="margin-right:45px;margin-top:-20px;width:100px;" id="buttn">Home</button>
+		</div>
+		<img src="image/film.jpg" style="width:1366px;height:300px;" id="imag"></img>
+	</header>
+	<div class="navbar navbar-default" >
+		<form class="navbar-form navbar-left"  style="padding:70px;margin-left:30%;" role="search">
+			<div class="form-group col-4" >
+				<input type="text" class="form-control" placeholder="search for movies" id="searchinp" style="width:350px;background-color:#404444;color:#ffffff;">
+			</div>
+			<button type="button" class="btn btn-default" id="searchbtn" style="margin-top:3px;margin-left:130px;color:black;">
+				<span class="glyphicon glyphicon-search" ></span>
+			</button>			
+		</form>
+	</div>
+
+	<div  id="display">
+		<marquee direction="right" width="85%" scrollamount="8" ><font color="#70521a" size="5px">Find your Favourite Movies.....!!!</font></marquee>
+	</div>	
+
+</body>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script>
+
+$(function(){
+
+	$('#buttn').on('mouseover',function(){
+
+		$('#imag').animate({
+			height:'hide'
+		});
+		$('h3').animate({
+			fontSize: '4em'}, "slow"
+		);
+
+	});
+
+	$('#buttn').on('click',function(){
+		$('#imag').animate({
+			height:'show'
+		});
+		$('h3').animate({
+			fontSize: '2em'}, "slow"
+		);
+	});
+
+	$('#searchbtn').on('click',function(){
+		var value=$('#searchinp').val();
+		$('#display').empty();
+// console.log(value);
+$.ajax({
+	type:"GET",
+	url:"http://www.omdbapi.com/?s=" + value,
+	success:function(response) {
+
+		$.each(response,function(j,result){
+// console.log(result);
+$.each(result,function(i,movies) {
+	var ele = document.createElement('p');
+	ele.innerHTML ="<br>"+"<b>"+"FILM:  &nbsp" +"</b>"+movies.Title +"<br><br>"+"<b>"+"YEAR:  &nbsp"+"</b>"+ movies.Year +"<br><br>"+"<b>"+"IMDBID:  &nbsp"+"</b>"+movies.imdbID ;
+	$('#display').append($('<img>',{src:movies.Poster})).append(ele);
+
+});
+});
+	},
+	error:function(){
+		alert("Not updated or may be Invalid name");
+	}
+});
+});
+
+});
+
+</script>
+</html>
